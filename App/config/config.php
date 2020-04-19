@@ -31,3 +31,12 @@ define('MPATH', __DIR__.'/../model/');
 define('VPATH', __DIR__.'/../view/');
 define('CPATH', __DIR__.'/../controllers/');
 define('LPATH', __DIR__.'/../library/');
+
+
+/**
+ * Vendor all path
+ * Const directories
+ * 
+ * @return Directory
+ */
+define('VNDRPATH',APPPATH.'vendor/');
