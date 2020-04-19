@@ -57,7 +57,7 @@ class Autoload
         
 
         // log_message('debug','Loader Class Initialized');
-        echo "Loader Class Initalized";
+        // echo "Loader Class Initalized";
     }
 
     /**
