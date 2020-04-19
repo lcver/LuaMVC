@@ -1,0 +1,12 @@
+{
+    "name": "lcver/mvc",
+    "description": "Belajar MVC",
+    "type": "project",
+    "authors": [
+        {
+            "name": "lcver",
+            "email": "crackover1092@gmail.com"
+        }
+    ],
+    "require": {}
+}
