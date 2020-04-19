@@ -45,14 +45,19 @@ class Autoload
         $this->viewDirectoryPath = VPATH;
         $this->controllerDirectoryPath = CPATH;
         $this->libraryDirectoryPath = LPATH;
+        $this->coreDirectoryPath = CORE_PATH;
+
+        // $this = explode('\\',$core);
+        // $core = end($core);
 
         spl_autoload_register(array($this,'load_controller'));
+        spl_autoload_register(array($this,'load_core'));
         spl_autoload_register(array($this,'load_model'));
         spl_autoload_register(array($this,'load_library'));
+        
 
         // log_message('debug','Loader Class Initialized');
         echo "Loader Class Initalized";
-
     }
 
     /**
@@ -65,7 +70,7 @@ class Autoload
      * @library String
      * @param String
      */
-    public function load_library($library, $param = null)
+    public function load($library, $param = null)
     {
         if(is_string($library))
         {
@@ -75,7 +80,7 @@ class Autoload
         if(is_array($param))
         {
             foreach ($library as $d) {
-                $this->initialize_class($library);
+                return $this->initialize_class($library);
             }
         }
     }
@@ -91,7 +96,7 @@ class Autoload
      * $library String|Array
      * @param String
      */
-    public function initialize_class($library)
+    public function initialize_class($library=null)
     {
         try{
             if(is_array($library)){
@@ -103,12 +108,12 @@ class Autoload
             if(is_string($library)){
                 $stringObject = new $library;
             }else{
-                throw new ISException("Class name must be string");
+                throw new Exception("Class name must be string");
             }
 
             if(is_null($library))
             {
-                throw new ISException("You must enter the name of the class");
+                throw new Exception("You must enter the name of the class");
             }
 
         }catch(Exception $e){
@@ -127,9 +132,13 @@ class Autoload
     {
         if($controller)
         {
+            $controller = explode('\\',$controller);
+            $controller = end($controller);
+
             set_include_path($this->controllerDirectoryPath);
             spl_autoload_extensions('.php');
-            spl_autoload($class);
+            spl_autoload($controller);
+            // echo "controller";
         }
     }
 
@@ -142,9 +151,13 @@ class Autoload
     public function load_model($model){
         if($model)
         {
+            $model = explode('\\',$model);
+            $model = end($model);
+
             set_include_path($this->modelDirectoryPath);
             spl_autoload_extensions('.php');
-            spl_autoload($class);
+            spl_autoload($model);
+            // echo "model";
         }
     }
 
@@ -155,13 +168,31 @@ class Autoload
      * @return Object
      * 
      */
-    // public function load_library($library)
-    // {
-    //     if($library){
-    //         set_include_path($this->controllerDirectoryPath);
-    //         spl_autoload_extensions('.php');
-    //         spl_autoload($class);
-    //     }
-    // }
+    public function load_library($library)
+    {
+        if($library){
+            $library = explode('\\',$library);
+            $library = end($library);
+
+            set_include_path($this->libraryDirectoryPath);
+            spl_autoload_extensions('.php');
+            spl_autoload($library);
+            // echo "library";
+        }
+    }
+
+    public function load_core($core)
+    {
+        if($core)
+        {
+            $core = explode('\\',$core);
+            $core = end($core);
+            
+            set_include_path($this->coreDirectoryPath);
+            spl_autoload_extensions('.php');
+            spl_autoload($core);
+            // echo "core";
+        }
+    }
     
 }
