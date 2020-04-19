@@ -1,1 +1,12 @@
+# ignore a single file
+
+
+# ignore an entire directory
+
+# ignore a file type
+
+# add an exception (using !) to the preceding rule to track a specific file
 /vendor/
+/App/view/
+/App/controllers/
+/App/model/
