@@ -8,6 +8,12 @@
 require 'config/config.php';
 
 /**
+ * Autoload Vendor
+ * @return vendor
+ */
+require APPPATH.'vendor/autoload.php';
+
+/**
  * Autoload Class
  * @return class
  */
