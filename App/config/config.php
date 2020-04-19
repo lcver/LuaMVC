@@ -18,7 +18,7 @@ session_start();
  * 
  * @return Directory
  */
-define('APPPATH',__DIR__.'/../');
+define('APPPATH',__DIR__.'/../../');
 
 /**
  * PATH MVC
