@@ -4,6 +4,7 @@
  * @return Init
  */
 use App\Core\Controller;
+use App\Core\Database;
 
 class ProfileModel extends Controller
 {
