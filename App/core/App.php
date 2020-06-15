@@ -18,10 +18,14 @@ class App
          * 
          * @return Controller
          */
-        if(file_exists(CPATH.$url[0].'Controller.php'))
-        {
-            $this->controller = $url[0].'Controller';
-            unset($url[0]);
+        if(isset($url[0])){
+            if(file_exists(CPATH.$url[0].'Controller.php'))
+            {
+                $this->controller = $url[0].'Controller';
+                unset($url[0]);
+            }
+        } else {
+            $this->controller = $this->controller.'Controller';
         }
         // var_dump($this->controller);
 
