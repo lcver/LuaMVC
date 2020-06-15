@@ -35,10 +35,21 @@ define('APPPATH',$app_path);
  * @return Directory
  */
 define('CORE_PATH', APPPATH.'App/core/');
-define('MPATH', APPPATH.'App/model/');
-define('VPATH', APPPATH.'App/view/');
+define('MPATH', APPPATH.'App/models/');
+define('VPATH', APPPATH.'App/views/');
 define('CPATH', APPPATH.'App/controllers/');
 define('LPATH', APPPATH.'App/library/');
+
+/**
+ * DATABASE
+ * Configuration Database
+ * 
+ * @return Constant
+ */
+define('DBHOST','localhost');
+define('DBUSER','root');
+define('DBPASS','Lucver1092');
+define('DBNAME','mvc');
 
 
 /**
