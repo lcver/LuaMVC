@@ -3,7 +3,10 @@
  * Base URL
  * @return URL
  */
-define('BASEURL','http://localhost/belajar/MVC/public/');
+$base_url = (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] == 'on') ? 'https' : 'http';
+$base_url.= "://".$_SERVER['HTTP_HOST'];
+$base_url.= str_replace(basename($_SERVER['SCRIPT_NAME']),'',$_SERVER['SCRIPT_NAME']);
+define('BASEURL', $base_url);
 
 /**
  * Start Session
@@ -18,7 +21,12 @@ session_start();
  * 
  * @return Directory
  */
-define('APPPATH',__DIR__.'/../../');
+$app_path = realpath(dirname(__FILE__));
+$app_path = str_replace("\\",'/',$app_path);
+// $app_path = str_replace($_SERVER['DOCUMENT_ROOT'],'',$app_path);
+$app_path = preg_replace('/config/', '', $app_path);
+$app_path = str_replace("App/",'',$app_path);
+define('APPPATH',$app_path);
 
 /**
  * PATH MVC
@@ -26,11 +34,11 @@ define('APPPATH',__DIR__.'/../../');
  * 
  * @return Directory
  */
-define('CORE_PATH', __DIR__.'/../core/');
-define('MPATH', __DIR__.'/../model/');
-define('VPATH', __DIR__.'/../view/');
-define('CPATH', __DIR__.'/../controllers/');
-define('LPATH', __DIR__.'/../library/');
+define('CORE_PATH', APPPATH.'App/core/');
+define('MPATH', APPPATH.'App/model/');
+define('VPATH', APPPATH.'App/view/');
+define('CPATH', APPPATH.'App/controllers/');
+define('LPATH', APPPATH.'App/library/');
 
 
 /**
