@@ -41,17 +41,17 @@ class Autoload
 
     public function __construct()
     {
-        $this->modelDirectoryPath = MPATH;
-        $this->viewDirectoryPath = VPATH;
-        $this->controllerDirectoryPath = CPATH;
-        $this->libraryDirectoryPath = LPATH;
-        $this->coreDirectoryPath = CORE_PATH;
+        $this->_modelDirectoryPath = MPATH;
+        $this->_viewDirectoryPath = VPATH;
+        $this->_controllerDirectoryPath = CPATH;
+        $this->_libraryDirectoryPath = LPATH;
+        $this->_coreDirectoryPath = CORE_PATH;
 
         // $this = explode('\\',$core);
         // $core = end($core);
 
-        spl_autoload_register(array($this,'load_controller'));
         spl_autoload_register(array($this,'load_core'));
+        spl_autoload_register(array($this,'load_controller'));
         spl_autoload_register(array($this,'load_model'));
         spl_autoload_register(array($this,'load_library'));
         
@@ -135,9 +135,8 @@ class Autoload
             $controller = explode('\\',$controller);
             $controller = end($controller);
 
-            set_include_path($this->controllerDirectoryPath);
-            spl_autoload_extensions('.php');
-            spl_autoload($controller);
+            if(file_exists($this->_controllerDirectoryPath.$controller.'.php'))
+                include $this->_controllerDirectoryPath.$controller.'.php';
             // echo "controller";
         }
     }
@@ -154,9 +153,8 @@ class Autoload
             $model = explode('\\',$model);
             $model = end($model);
 
-            set_include_path($this->modelDirectoryPath);
-            spl_autoload_extensions('.php');
-            spl_autoload($model);
+            if(file_exists($this->_modelDirectoryPath.$model.'.php'))
+                include $this->_modelDirectoryPath.$model.'.php';
             // echo "model";
         }
     }
@@ -174,10 +172,8 @@ class Autoload
             $library = explode('\\',$library);
             $library = end($library);
 
-            set_include_path($this->libraryDirectoryPath);
-            spl_autoload_extensions('.php');
-            spl_autoload($library);
-            // echo "library";
+            if(file_exists($this->_libraryDirectoryPath.$library.'.php'))
+                include $this->_libraryDirectoryPath.$library.'.php';
         }
     }
 
@@ -187,11 +183,8 @@ class Autoload
         {
             $core = explode('\\',$core);
             $core = end($core);
-            
-            set_include_path($this->coreDirectoryPath);
-            spl_autoload_extensions('.php');
-            spl_autoload($core);
-            // echo "core";
+            if(file_exists($this->_coreDirectoryPath.$core.'.php'))
+                include $this->_coreDirectoryPath.$core.'.php';
         }
     }
     
