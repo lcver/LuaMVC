@@ -1,0 +1,53 @@
+nav{
+    background-color: #329da8;
+    box-shadow: 0px 1px 20px rgba(0,0,0, 0.3);
+    height : 70px;
+    /* box-sizing: border-box; */
+}
+
+.nav-right{
+    padding: 0 50px;
+    /* box-sizing: border-box; */
+    /* background-color: blue; */
+    height: 70px;
+    float: right;    
+}
+
+.nav-menu{
+    /* box-sizing: border-box; */
+}
+
+.nav-item{
+    display: inline-block;
+    /* background-color: brown; */
+    list-style: none;
+    padding: 25px;
+}
+
+.nav-item a{
+    text-decoration: none;
+    color: rgba(255,255,255,0.5);
+}
+
+.nav-left{
+    float: left;
+    /* background-color: red; */
+    height: 70px;
+}
+
+.brand{
+    padding: 15px 20px;
+}
+
+.brand p{
+    font-size: 25px;
+    font-weight: 600;
+    color: white;
+}
+.brand p span{
+    background-color: white;
+    padding: 5px;
+    margin-right: 2px;
+    color: #329da8;
+    font-size: 30px;
+}
