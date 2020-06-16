@@ -7,6 +7,9 @@
 
 # add an exception (using !) to the preceding rule to track a specific file
 /vendor/
-/App/view/
+/App/views/
+!/App/views/home
 /App/controllers/
-/App/model/
+/App/models/
+!/App/models/DefaultModel.php
+public/
