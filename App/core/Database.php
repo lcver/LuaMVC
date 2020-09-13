@@ -66,7 +66,7 @@ class Database extends DatabaseFactory #implements \App\Core\Query\QueryInterfac
     }
 
     // where clause
-    public function where($key, $cond, $value)
+    public function where($key, $cond=null, $value=null)
     {
         $temp_condition = null;
 
@@ -121,7 +121,7 @@ class Database extends DatabaseFactory #implements \App\Core\Query\QueryInterfac
              * example :
              *      where('condition1','!=','condition2');
              */
-            $i=0;
+            $a=0;
             while( $countOperator > $a ):
                 $case = $cond == $operator[$a];
                     if($case) break;
