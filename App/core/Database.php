@@ -66,6 +66,17 @@ class Database extends DatabaseFactory #implements \App\Core\Query\QueryInterfac
     }
 
     // where clause
+    /**
+     * Where
+     * 
+     * key
+     * @param String|Array|Int
+     * condition
+     * @param Null|String|Int|Operator
+     * value
+     * @param Null|String|Int
+     * 
+     */
     public function where($key, $cond=null, $value=null)
     {
         $temp_condition = null;
