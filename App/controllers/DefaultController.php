@@ -1,10 +1,9 @@
 <?php
 /**
- * Initialized Class
- * @return Init
+ * Initialized Controller
+ * @return Controller
  */
 use App\Core\Controller;
-
 
 class DefaultController extends Controller
 {
