@@ -181,8 +181,12 @@ class Autoload
     {
         if($core)
         {
-            $core = explode('\\',$core);
-            $core = end($core);
+            $based = str_replace(APPPATH,'',CORE_PATH);
+            $based = preg_replace('/core/i','Core',$based);
+
+            $core = str_replace("\\","/",$core);
+            $core = str_replace($based,'',$core);
+            
             if(file_exists($this->_coreDirectoryPath.$core.'.php'))
                 include $this->_coreDirectoryPath.$core.'.php';
         }
