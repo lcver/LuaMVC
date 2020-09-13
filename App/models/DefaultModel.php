@@ -1,62 +1,46 @@
 <?php
 /**
- * Initialized Class
- * @return Init
+ * Initialized Controller
+ * @return Controller
  */
 use App\Core\Controller;
 
 class DefaultModel extends Controller
 {
     /**
-     * Nama
-     * @var String
-     */
-    protected $nama;
-
-    /**
-     * Umur
-     * @var Integer
-     */
-    protected $umur;
-
-    /**
-     * Asal Sekolah
-     * @var String
-     */
-    protected $sekolah;
-
-    /**
-     * Data
-     * To return
-     * @var Object
-     */
-    public $data;
-
-    /**
-     * Set Data
-     * Catch data params
      * 
-     * @param String
-     * Nama, Sekolah
-     * @param Integer
-     * Umur
+     * create view resource data
      */
-    public function set_data($nama, $umur, $sekolah)
-    {
-        $this->nama = $nama;
-        $this->umur = $umur;
-        $this->sekolah = $sekolah;
-    }
+    public function create(){}
+ 
+    /**
+     * 
+     * stored new resourece data
+     */
+    public function store(){}
+ 
+    /**
+     * 
+     * display the specified resource data
+     */
+    public function show(){}
 
     /**
-     * Get Data
-     * Return data object
      * 
-     * @return object
+     * display form for editing resource data
      */
-    public function get_data()
-    {       
-        return $this;
-    }
+    public function edit($id){}
+
+    /**
+     * 
+     * update the specified resource data
+     */
+    public function update($id){}
+        
+    /**
+     * 
+     * remove specified resource data
+     */
+    public function destroy($id){}
     
 }
