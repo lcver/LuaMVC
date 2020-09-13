@@ -8,7 +8,7 @@
 # add an exception (using !) to the preceding rule to track a specific file
 /vendor/
 /App/views/
-!/App/views/home
+!/App/views/home/index.php
 /App/controllers/
 /App/models/
 !/App/models/DefaultModel.php
