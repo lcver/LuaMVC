@@ -8,7 +8,7 @@ interface QueryInterface
      * Insert Query
      * @param Array|String|Integer
      */
-    public function insert();
+    public function insert(Array $data);
 
     /**
      * Insert Batch
