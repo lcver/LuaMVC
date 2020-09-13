@@ -103,7 +103,7 @@ interface QueryInterface
     public function affected_rows();
 // -------------------------------------------------------------------------------------------------------
     // where clause
-    public function where();
+    public function where($key, $cond, $value);
 
     /**
      * Where in

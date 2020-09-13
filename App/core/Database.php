@@ -65,10 +65,82 @@ class Database extends DatabaseFactory #implements \App\Core\Query\QueryInterfac
         return $result;
     }
 
-    public function where()
+    // where clause
+    public function where($key, $cond, $value)
     {
-        $this->querySQL['where'] = "key = value";
-        $this->querySQL['where'] = "key = value and key = value";
+        $temp_condition = null;
+
+        /**
+         * Const Operator
+         * to comparing data
+         */
+        $operator = ['=','==','>','<>','<','like','!=','!==','%'];
+        $countOperator = count($operator);
+
+        /**
+         * Filter if key is Array or String
+         * example :
+         *      Array = where(['condition1'=>'condition2']);
+         *      String = where('condition1','condition2');
+         * 
+         */
+        if( is_array($key) )
+        {
+            foreach ($key as $key => $value) {
+
+                /**
+                 * Filtering value
+                 * if type data value is Array
+                 * example :
+                 *      where([
+                 *          ['condition1'=>'condition2'],
+                 *          ['condition3'=>'condition4']
+                 *      ])
+                 */
+                if( is_array($value) ):
+
+                    for ($i=0; $i < count($value) ; $i++) { 
+                        $keyVal = $value[$i]; $i++;
+                        $condVal= $value[$i]; $i++;
+                        $valVal = $value[$i];
+
+                        $values[] = $keyVal.$condVal.$valVal;
+                    }
+
+                else :
+                    $values[] = $key."=".$value;
+                endif;
+                
+            }
+            $temp_condition = implode(' and ', $values);
+
+        } elseif( is_string($key) )
+        {
+            /**
+             * Filter operator if using operator 
+             * example :
+             *      where('condition1','!=','condition2');
+             */
+            $i=0;
+            while( $countOperator > $a ):
+                $case = $cond == $operator[$a];
+                    if($case) break;
+
+                $a++;
+            endwhile;
+
+            if( $case ) :
+                $value = is_string($value) ? "'".$value."'" : $value;
+                $temp_condition = "$key $cond $value";
+            else :
+                $value = is_string($cond) ? "'".$cond."'" : $cond;
+                $temp_condition = $key.$operator[0].$value;
+            endif;
+        }
+
+        self::$querySQL['condition'] = "where ".$temp_condition;
+
+        return new self;
     }
 
     // run query
