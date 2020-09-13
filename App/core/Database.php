@@ -71,10 +71,63 @@ class Database extends DatabaseFactory #implements \App\Core\Query\QueryInterfac
         $this->querySQL['where'] = "key = value and key = value";
     }
 
-        
+    // run query
     public function get()
     {
-        self::$querySQL = "select * form table where 1 = 1";
+        /**
+         * Clean previous data 
+         */
+        self::$querySQL['condition'] = empty(self::$querySQL['condition']) ? "" : self::$querySQL['condition'];
+        self::$querySQL['column'] = empty(self::$querySQL['column']) ? "*" : self::$querySQL['column'];
+        if(isset(self::$querySQL['column']))
+        {
+            $column = self::$querySQL['column'];
+            unset(self::$querySQL['column']);
+        }
+
+        /**
+         * Connect to database
+         * set query to fetch data
+         * 
+         */
+        $table = self::$table;
+        $querySQL = "select ".$column." from $table ".self::$querySQL['condition'];
+
+        /**
+         * Fetch data
+         * @return data
+         */
+        $res = $this->conn->query($querySQL);
+
+
+        /**
+         * Filter Data
+         * 
+         * if null return null
+         * else return data
+         * 
+         * @return Null
+         * or
+         * @return Data
+         */
+        if( $res )
+        {
+            if( $res->num_rows<>1 ):
+
+                for ($i=0; $i < $res->num_rows ; $i++) { 
+                    $result[] = $res->fetch_assoc();
+                }
+
+            elseif ( $res->num_rows==1 ):
+                $result = $res->fetch_assoc();
+            else:
+                $result = null;
+            endif;
+        } else {
+            return $result = null;            
+        }
+
+        return isset($result) ? $result : null;
     }
     
 }
