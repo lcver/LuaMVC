@@ -17,13 +17,13 @@ class DatabaseFactory extends DatabaseConnection
      * 
      * @return destroy connection
      */
-    public function __destruct()
-    {
-        if(self::$connection != null)
-        {
-            $this->closeConnection();
-        }
-    }
+    // public function __destruct()
+    // {
+    //     if(self::$connection != null)
+    //     {
+    //         $this->closeConnection();
+    //     }
+    // }
 
     public static function __getInstance()
     {
@@ -37,6 +37,7 @@ class DatabaseFactory extends DatabaseConnection
             self::$connection = new DatabaseConnection($host,$user,$password,$dbname);
             self::$connection = self::$connection->createConnection();
         }
+        return self::$connection;
     }
 
     /**
