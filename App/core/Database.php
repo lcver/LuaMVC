@@ -36,7 +36,7 @@ class Database extends DatabaseFactory #implements \App\Core\Query\QueryInterfac
      */
     public function insert(Array $data)
     {
-        // Fetch values
+        // Get data value
         $values = [];
         foreach ($data as $key => $value) {
             if( is_string($value) )
@@ -53,7 +53,7 @@ class Database extends DatabaseFactory #implements \App\Core\Query\QueryInterfac
         // Set to null when have string 0
         $val = preg_replace("/''/",'null',$val);
         
-        // Fetch all column
+        // Get data column
         $column = array_keys($data);
         $column = implode(',',$column);
 
@@ -63,6 +63,50 @@ class Database extends DatabaseFactory #implements \App\Core\Query\QueryInterfac
         $result = $c->query(self::$querySQL['insert']);
 
         return $result;
+    }
+
+    /**
+     * Insert Id
+     * Get last Id when store data
+     * 
+     * @param Array|String|Integer
+     * @return id
+     */
+    public function insertId(Array $data)
+    {
+        /**
+         * Filter escape string
+         * get data value
+         */
+        $values = [];
+        foreach ($data as $key => $value) {
+            $value = Factory::escapeString($value);
+            $values[] = is_string($value) ? "'$value'" : $value;
+        }
+        $values = implode(',', $values);
+
+
+        /**
+         * Get data column
+         */
+        $column = array_keys($data);
+        $column = implode(',', $column);
+
+
+        self::$querySQL['insertId'] = "insert into ".self::$table."($column) values ($values)";
+
+        $result = null;
+
+
+        /**
+         * Prepare Connection
+         */
+        $c = Factory::$connection;
+        if($c->query(self::$querySQL['insertId']))
+            $result = $c->insert_id;
+
+
+            return $result;
     }
 
     // where clause
