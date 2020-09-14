@@ -8,7 +8,5 @@
             "email": "crackover1092@gmail.com"
         }
     ],
-    "require": {
-        "twbs/bootstrap": "4.4.1"
-    }
+    "require": {}
 }
