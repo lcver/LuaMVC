@@ -18,6 +18,15 @@ interface QueryInterface
      */
     public function insertBatch();
 
+    /**
+     * Insert Id
+     * Get last Id when store data
+     * 
+     * @param Array|String|Integer
+     * @return id
+     */
+    public function insertId(Array $data);
+
     // update
     /**
      * Update Query
