@@ -76,7 +76,7 @@ interface QueryInterface
     public function truncate();
 
     // join
-    public function join();
+    public function join(String $table);
 
     /**
      * Condition Join
