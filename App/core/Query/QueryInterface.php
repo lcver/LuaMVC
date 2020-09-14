@@ -84,7 +84,7 @@ interface QueryInterface
      * 
      * @param String|Integer
      */
-    public function on();
+    public function on($condition1, $condition2);
 
     /**
      * LeftJoin & RightJoin Query
