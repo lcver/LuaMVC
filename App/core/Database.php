@@ -154,6 +154,58 @@ class Database extends DatabaseFactory #implements \App\Core\Query\QueryInterfac
         return new self;
     }
 
+    // Join
+    public function join($table)
+    {
+        /**
+         * Rewrite data table
+         */
+        if( preg_match('/join/', self::$table) ):
+            self::$table .= self::$querySQL['condition']." join ".$table." ";
+        else:
+            self::$table = self::$table." join ".$table." ";
+        endif;
+
+        return new self;
+
+    }
+
+    /**
+     * Condition Join
+     * use on clause when add join query
+     * 
+     * @param String|Integer
+     */
+    public function on($condition1, $condition2=null)
+    {
+        if( is_array($condition1) )
+        {
+            foreach ($condition1 as $key => $value) {
+                if( is_array($value) ):
+                    $i=0;
+                    for ($i=0; $i < count($value) ; $i++) { 
+                        $keyVal = $value[$i]; $i++;
+                        $condVal= $value[$i]; $i++;
+                        $valVal = $value[$i];
+
+                        $values[] = $keyVal.$condVal.$valVal;
+                    }
+                else:
+                    $values[] = $key."=".$value;
+                endif;
+            }
+            $values = implode(" and ", $values);
+
+        } elseif ( is_string($condition1) )
+        {
+            $values = $condition."=".$condition2;
+        }
+
+        self::$querySQL['condition'] = 'on '.$values;
+
+        return new self;
+    }
+
     // run query
     public function get()
     {
