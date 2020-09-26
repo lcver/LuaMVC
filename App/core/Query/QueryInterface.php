@@ -32,7 +32,7 @@ interface QueryInterface
      * Update Query
      * @param Array|String|Integer
      */
-    public function update();
+    public function update(Array $data);
     
     /**
      * Update or insert
@@ -76,7 +76,7 @@ interface QueryInterface
     public function truncate();
 
     // join
-    public function join(String $table);
+    public function join(String $Table);
 
     /**
      * Condition Join
@@ -220,11 +220,11 @@ interface QueryInterface
     public function orderBy();
 
     // free sql
-    public function raw();
+    public function whereRaw();
     public function when();
 
     // select column
-    public function select();
+    public function select(Array $data);
 
     // multiple query
     public function union();
