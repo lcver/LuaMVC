@@ -8,5 +8,5 @@
  * App Class
  * @return App
  */
-require '../App/init.php';
+require 'App/init.php';
 $app = new App\Core\App;
