@@ -471,7 +471,12 @@ class Database extends DatabaseFactory #implements \App\Core\Query\QueryInterfac
     public function when(){}
 
     // select column
-    public function select(Array $data){}
+    public function select(Array $data)
+    {
+        self::$querySQL['column'] = implode(',', $data);
+
+        return new self;
+    }
 
     // multiple query
     public function union(){}
