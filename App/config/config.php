@@ -46,10 +46,10 @@ define('LPATH', APPPATH.'App/library/');
  * 
  * @return Constant
  */
-define('DBHOST','localhost');
-define('DBUSER','root');
-define('DBPASS','Lucver1092');
-define('DBNAME','mvc');
+define('DBHOST','');
+define('DBUSER','');
+define('DBPASS','');
+define('DBNAME','');
 
 
 /**

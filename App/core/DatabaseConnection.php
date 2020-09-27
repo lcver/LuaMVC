@@ -41,7 +41,8 @@ class DatabaseConnection
     {
         self::$connection = new \mysqli($this->host,$this->user,$this->password,$this->dbname);
         if(self::$connection->connect_error){
-            echo "Fail " . $thi->connection->connect_error;
+            echo "Fail " . self::$connection->connect_error;
+            die();
         }
         return self::$connection;
     }

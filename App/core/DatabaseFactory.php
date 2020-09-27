@@ -29,13 +29,17 @@ class DatabaseFactory extends DatabaseConnection
     {
         if(self::$connection == null)
         {
-            $host = DBHOST;
-            $user = DBUSER;
-            $password = DBPASS;
-            $dbname = DBNAME;
+            if( !is_null(DBHOST) && !is_null(DBUSER) ) :
 
-            self::$connection = new DatabaseConnection($host,$user,$password,$dbname);
-            self::$connection = self::$connection->createConnection();
+                $host = DBHOST;
+                $user = DBUSER;
+                $password = DBPASS;
+                $dbname = DBNAME;
+
+                self::$connection = new DatabaseConnection($host,$user,$password,$dbname);
+                self::$connection = self::$connection->createConnection();
+
+            endif;
         }
         return self::$connection;
     }
