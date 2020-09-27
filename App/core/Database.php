@@ -123,7 +123,37 @@ class Database extends DatabaseFactory #implements \App\Core\Query\QueryInterfac
      * Update Query
      * @param Array|String|Integer
      */
-    public function update(Array $data){}
+    public function update(Array $data)
+    {
+        foreach ($data as $key => $value) {
+
+            // Escape String
+            $value = Factory::escapeString($value);
+            
+            if ( is_string($value) ):
+                $datas[] = "$key='$value'";
+
+            elseif ( is_numeric($value) ):
+                $datas[] = $key."=".$value;
+            elseif( is_null($value) ):
+                $datas[] = $value;
+            endif;
+
+        }
+        $data = implode(',', $datas);
+
+        // Set to null when have string 0
+        $data = preg_replace("/''/", 'null', $data);
+        
+        // Set query update
+        self::$querySQL = "update ".self::$table." set $data ".self::$querySQL['condition'];
+
+        // Execute query
+        $c = Factory::$connection;
+        $result = $c->query(self::$querySQL);
+
+        return $result;
+    }
     
     /**
      * Update or insert
