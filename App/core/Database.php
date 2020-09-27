@@ -280,7 +280,12 @@ class Database extends DatabaseFactory #implements \App\Core\Query\QueryInterfac
      * 
      * @param Query
      */
-    public function affected_rows(){}
+    public function affected_rows()
+    {
+        $result = $this->conn->affected_rows;
+        return $result;
+    }
+
 // -------------------------------------------------------------------------------------------------------
     // where clause
     /**
