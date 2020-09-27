@@ -11,7 +11,11 @@ require 'config/config.php';
  * Autoload Vendor
  * @return vendor
  */
-require APPPATH.'vendor/autoload.php';
+if( is_file(APPPATH.'vendor/autoload.php') )
+{
+    require APPPATH.'vendor/autoload.php';
+}
+
 
 /**
  * Autoload Class
