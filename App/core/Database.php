@@ -155,7 +155,16 @@ class Database extends DatabaseFactory #implements \App\Core\Query\QueryInterfac
      * Delete Query
      * @param Array|String|Integer
      */
-    public function delete(){}
+    public function delete()
+    {
+        $querySQL = "delete from ".self::$table." ".self::$querySQL['condition'];
+        // var_dump($querySQL); return true;
+
+        $c = Factory::$connection;
+        $result = $c->query($querySQL);
+
+        return $result;
+    }
 
     /**
      * Empty table & truncate
