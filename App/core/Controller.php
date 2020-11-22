@@ -40,6 +40,6 @@ class Controller
 
 
         /** Geting Content */
-        return file_get_contents(VPATH.$view.".php");
+        return require(VPATH.$view.".php");
     }
 }
