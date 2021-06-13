@@ -146,11 +146,11 @@ class Database extends DatabaseFactory #implements \App\Core\Query\QueryInterfac
         $data = preg_replace("/''/", 'null', $data);
         
         // Set query update
-        self::$querySQL = "update ".self::$table." set $data ".self::$querySQL['condition'];
+        $querySQL = "update ".self::$table." set $data ".self::$querySQL['condition'];
 
         // Execute query
         $c = Factory::$connection;
-        $result = $c->query(self::$querySQL);
+        $result = $c->query($querySQL);
 
         return $result;
     }
