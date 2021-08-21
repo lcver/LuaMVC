@@ -25,7 +25,7 @@ $app_path = realpath(dirname(__FILE__));
 $app_path = str_replace("\\",'/',$app_path);
 // $app_path = str_replace($_SERVER['DOCUMENT_ROOT'],'',$app_path);
 $app_path = preg_replace('/config/', '', $app_path);
-$app_path = str_replace("App/",'',$app_path);
+$app_path = str_replace("/App/",'/',$app_path);
 define('APPPATH',$app_path);
 
 /**
