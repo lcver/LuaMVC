@@ -249,7 +249,7 @@ class Database extends DatabaseFactory #implements \App\Core\Query\QueryInterfac
 
         } elseif ( is_string($condition1) )
         {
-            $values = $condition."=".$condition2;
+            $values = $condition1."=".$condition2;
         }
 
         $this->querySQL['condition'] = 'on '.$values;
