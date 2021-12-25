@@ -10,7 +10,7 @@ class Database extends DatabaseFactory #implements \App\Core\Query\QueryInterfac
 {
 
     private static $table;
-    private static $querySQL = [];
+    private $querySQL = [];
     private $conn = null;
 
 
@@ -57,10 +57,10 @@ class Database extends DatabaseFactory #implements \App\Core\Query\QueryInterfac
         $column = array_keys($data);
         $column = implode(',',$column);
 
-        self::$querySQL['insert'] = "insert into ".self::$table."($column) values ($val)";
+        $this->querySQL['insert'] = "insert into ".self::$table."($column) values ($val)";
         
         $c = Factory::$connection;
-        $result = $c->query(self::$querySQL['insert']);
+        $result = $c->query($this->querySQL['insert']);
 
         return $result;
     }
@@ -101,7 +101,7 @@ class Database extends DatabaseFactory #implements \App\Core\Query\QueryInterfac
         $column = implode(',', $column);
 
 
-        self::$querySQL['insertId'] = "insert into ".self::$table."($column) values ($values)";
+        $this->querySQL['insertId'] = "insert into ".self::$table."($column) values ($values)";
 
         $result = null;
 
@@ -110,7 +110,7 @@ class Database extends DatabaseFactory #implements \App\Core\Query\QueryInterfac
          * Prepare Connection
          */
         $c = Factory::$connection;
-        if($c->query(self::$querySQL['insertId']))
+        if($c->query($this->querySQL['insertId']))
             $result = $c->insert_id;
 
 
@@ -146,7 +146,7 @@ class Database extends DatabaseFactory #implements \App\Core\Query\QueryInterfac
         $data = preg_replace("/''/", 'null', $data);
         
         // Set query update
-        $querySQL = "update ".self::$table." set $data ".self::$querySQL['condition'];
+        $querySQL = "update ".self::$table." set $data ".$this->querySQL['condition'];
 
         // Execute query
         $c = Factory::$connection;
@@ -187,7 +187,7 @@ class Database extends DatabaseFactory #implements \App\Core\Query\QueryInterfac
      */
     public function delete()
     {
-        $querySQL = "delete from ".self::$table." ".self::$querySQL['condition'];
+        $querySQL = "delete from ".self::$table." ".$this->querySQL['condition'];
         // var_dump($querySQL); return true;
 
         $c = Factory::$connection;
@@ -212,12 +212,12 @@ class Database extends DatabaseFactory #implements \App\Core\Query\QueryInterfac
          * Rewrite data table
          */
         if( preg_match('/join/', self::$table) ):
-            self::$table .= self::$querySQL['condition']." join ".$table." ";
+            self::$table .= $this->querySQL['condition']." join ".$table." ";
         else:
             self::$table = self::$table." join ".$table." ";
         endif;
 
-        return new self;
+        return $this;
 
     }
 
@@ -252,9 +252,9 @@ class Database extends DatabaseFactory #implements \App\Core\Query\QueryInterfac
             $values = $condition."=".$condition2;
         }
 
-        self::$querySQL['condition'] = 'on '.$values;
+        $this->querySQL['condition'] = 'on '.$values;
 
-        return new self;
+        return $this;
     }
 
     /**
@@ -371,9 +371,9 @@ class Database extends DatabaseFactory #implements \App\Core\Query\QueryInterfac
             endif;
         }
 
-        self::$querySQL['condition'] = "where ".$temp_condition;
+        $this->querySQL['condition'] = "where ".$temp_condition;
 
-        return new self;
+        return $this;
     }
 
     
@@ -478,9 +478,9 @@ class Database extends DatabaseFactory #implements \App\Core\Query\QueryInterfac
     // select column
     public function select(Array $data)
     {
-        self::$querySQL['column'] = implode(',', $data);
+        $this->querySQL['column'] = implode(',', $data);
 
-        return new self;
+        return $this;
     }
 
     // multiple query
@@ -492,12 +492,12 @@ class Database extends DatabaseFactory #implements \App\Core\Query\QueryInterfac
         /**
          * Clean previous data 
          */
-        self::$querySQL['condition'] = empty(self::$querySQL['condition']) ? "" : self::$querySQL['condition'];
-        self::$querySQL['column'] = empty(self::$querySQL['column']) ? "*" : self::$querySQL['column'];
-        if(isset(self::$querySQL['column']))
+        $this->querySQL['condition'] = empty($this->querySQL['condition']) ? "" : $this->querySQL['condition'];
+        $this->querySQL['column'] = empty($this->querySQL['column']) ? "*" : $this->querySQL['column'];
+        if(isset($this->querySQL['column']))
         {
-            $column = self::$querySQL['column'];
-            unset(self::$querySQL['column']);
+            $column = $this->querySQL['column'];
+            unset($this->querySQL['column']);
         }
 
         /**
@@ -506,7 +506,7 @@ class Database extends DatabaseFactory #implements \App\Core\Query\QueryInterfac
          * 
          */
         $table = self::$table;
-        $querySQL = "select ".$column." from $table ".self::$querySQL['condition'];
+        $querySQL = "select ".$column." from $table ".$this->querySQL['condition'];
 
         /**
          * Fetch data
