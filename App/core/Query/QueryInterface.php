@@ -217,7 +217,15 @@ interface QueryInterface
 
     // order & group
     public function groupBy();
-    public function orderBy();
+    
+    /**
+     * Order By
+     * Ordering row by column with ascending or descending
+     * 
+     * @param column String
+     * @param direction String
+     */
+    public function orderBy($column, $direction);
 
     // free sql
     public function whereRaw();
