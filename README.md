@@ -1,6 +1,9 @@
-# MVC-learning
+# LuaMVC
 
-Belajar MVC FULL ( apapun tentang mvc )
+![Build Status](https://travis-ci.org/LavaLite/cms.svg?branch=5.7)
+![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)
+
+This is an open source of model view controller developed with php native.
 
 
 ## License
