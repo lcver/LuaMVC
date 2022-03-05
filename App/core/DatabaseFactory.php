@@ -31,10 +31,10 @@ class DatabaseFactory extends DatabaseConnection
         (new DotEnv())->load();
         if(self::$connection == null)
         {
-            $host = DBHOST;
-            $user = DBUSER;
-            $password = DBPASS;
-            $dbname = DBNAME;
+            $host = $_ENV["MYSQL_HOST"];
+            $user = $_ENV["MYSQL_USER"];
+            $password = $_ENV["MYSQL_PASS"];
+            $dbname = $_ENV["MYSQL_NAME"];
 
             self::$connection = new DatabaseConnection($host,$user,$password,$dbname);
             self::$connection = self::$connection->createConnection();
