@@ -13,3 +13,4 @@
 /App/models/
 !/App/models/DefaultModel.php
 public/
+.env

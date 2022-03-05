@@ -6,6 +6,7 @@ namespace App\Core;
  * @return Init
  */
 use App\Core\DatabaseConnection;
+use App\Core\DotEnv;
 
 class DatabaseFactory extends DatabaseConnection
 {
@@ -27,19 +28,16 @@ class DatabaseFactory extends DatabaseConnection
 
     public static function __getInstance()
     {
+        (new DotEnv())->load();
         if(self::$connection == null)
         {
-            if( !is_null(DBHOST) && !is_null(DBUSER) ) :
+            $host = DBHOST;
+            $user = DBUSER;
+            $password = DBPASS;
+            $dbname = DBNAME;
 
-                $host = DBHOST;
-                $user = DBUSER;
-                $password = DBPASS;
-                $dbname = DBNAME;
-
-                self::$connection = new DatabaseConnection($host,$user,$password,$dbname);
-                self::$connection = self::$connection->createConnection();
-
-            endif;
+            self::$connection = new DatabaseConnection($host,$user,$password,$dbname);
+            self::$connection = self::$connection->createConnection();
         }
         return self::$connection;
     }
